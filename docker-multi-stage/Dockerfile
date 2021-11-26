@@ -1,20 +1,20 @@
 FROM python:3.9-alpine as base
 
-RUN mkdir /app
 WORKDIR /app
 
-COPY ./requirements.txt /app/requirements.txt
+COPY ./requirements.txt /app/
 RUN pip install -r requirements.txt
 
 COPY ./ /app/
 
-########### START NEW IMAGE : DEBUG ###################
+########### START NEW IMAGE: DEBUG #####################
 FROM base as debug
-RUN pip install ptvsd
 
-CMD python -m ptvsd --host 0.0.0.0 --port 5678 --wait --multiprocess -m flask run -h 0.0.0.0 -p 5000
+RUN pip install debugpy
 
-########### START NEW IMAGE: PRODUCTION ###################
+CMD python -m debugpy --listen 0.0.0.0:5678 --wait-for-client -m flask run -h 0.0.0.0 -p 5000
+
+########### START NEW IMAGE: PRODUCTION #####################
 FROM base as prod
 
 CMD flask run -h 0.0.0.0 -p 5000
