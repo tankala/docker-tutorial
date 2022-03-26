@@ -1,0 +1,10 @@
+<html>
+    <body>
+        <h1>Update book title</h1>
+        <form method="POST" action="/update-title">
+            <input type="hidden" name="old_title" value="{{ title }}">
+            <input type="text" name="new_title" value="{{ title }}">
+            <input type="submit" value="Update">
+        </form>
+    </body>
+</html>
