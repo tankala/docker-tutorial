@@ -1,0 +1,4 @@
+flask
+sqlalchemy
+flask-sqlalchemy
+psycopg2
